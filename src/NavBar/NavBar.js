@@ -8,14 +8,20 @@ export default class NavBar extends Component {
 
         this.state = {
             items: [
-                { name: "Listar Tarefas", href: "/" },
-                { name: "Nova Tarefa", href: "/form" },
+                { name: "Listar Tarefas", href: "/", active: true },
+                { name: "Nova Tarefa", href: "/form", active: false },
             ]
         }
+
+        this.onClickHeandler = this.onClickHeandler.bind(this)
     }
 
-    onClickHeandler(item) {
-        alert(item.name)
+    onClickHeandler(itemClicked) {
+        this.setState(
+            this.state.items.map(
+                i => i.name === itemClicked.name ? i.active = true : i.active = false
+            )
+        )
     }
 
     render() {
@@ -30,11 +36,11 @@ export default class NavBar extends Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
-                              
+
                                 {this.state.items.map(
-                                    i => <NavBarItem item={i} onClick={this.onClickHeandler}></NavBarItem>
+                                    i => <NavBarItem key={i.name} item={i} onClick={this.onClickHeandler}></NavBarItem>
                                 )}
-                            
+
                             </ul>
                         </div>
                     </div>
