@@ -1,16 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import TaskService from '../api/TaskService'
 import 'react-toastify/dist/ReactToastify.css'
 
-export default class TaskListTable extends Component {
+
+class TaskListTable extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = { tasks: [] }
-
         this.onDeleteHandler = this.onDeleteHandler.bind(this)
         this.onStatusChangeHandler = this.onStatusChangeHandler.bind(this)
+
     }
 
     render() {
@@ -56,9 +57,9 @@ export default class TaskListTable extends Component {
         )
     }
 
-
-
 }
+
+export default TaskListTable;
 
 const TableHeader = () => {
     return (
@@ -79,7 +80,7 @@ const EmptyTableBody = () => {
 
             <tr>
 
-                <td colspan="4">
+                <td colSpan="4">
                     <center>
                         Sem tarefas cadastradas no momento
                     </center>
@@ -99,8 +100,8 @@ const TableBody = (props) => {
                     task =>
                         <tr key={task.id}>
                             <td><input onChange={() => props.onStatusChange(task)} type="checkbox" checked={task.done} /></td>
-                            <td>{task.description}</td>
-                            <td>{task.whenToDo}</td>
+                            <td>{task.done ? <s>{task.description}</s> : task.description}</td>
+                            <td>{task.done ? <s>{task.whenToDo}</s> : task.whenToDo}</td>
                             <td>
                                 <input className="btn btn-primary" type="button" value="Editar"></input>
                                 &nbsp;<input onClick={() => props.onDelete(task.id)} className="btn btn-danger" type="button" value="Excluir"></input>

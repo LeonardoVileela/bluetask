@@ -1,9 +1,9 @@
-class TaskService{
-    constructor(){
+class TaskService {
+    constructor() {
         this.tasks = [
-            { id: 1 , description: "Tarefa nice" , whenToDo: "01/02/2022", done: true },
-            { id: 2 , description: "Tarefa uiuiui" , whenToDo: "05/05/2022", done: false },
-            { id: 3 , description: "Tarefa vaivai" , whenToDo: "06/06/2022", done: false },
+            { id: 1, description: "Tarefa nice", whenToDo: "01/02/2022", done: true },
+            { id: 2, description: "Tarefa uiuiui", whenToDo: "05/05/2022", done: false },
+            { id: 3, description: "Tarefa vaivai", whenToDo: "06/06/2022", done: false },
         ]
     }
 
@@ -11,14 +11,20 @@ class TaskService{
         return this.tasks
     }
 
-    delete(id){
+    delete(id) {
         this.tasks = this.tasks.filter(task => task.id !== id)
     }
 
-    save(task){
+    save(task) {
         this.tasks.map(
             t => task.id !== t.id ? t : task
         )
+    }
+    newValue(value) {
+        var formatDate = value.date
+        formatDate = formatDate.split("-")
+        value.date = formatDate[2] + "/" + formatDate[1] + "/" + formatDate[0]
+        this.tasks[this.tasks.length] = { id: Math.max(...this.tasks.map(t => t.id)) + 1, description: value.description, whenToDo: value.date, done: false }
     }
 
 }

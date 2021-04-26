@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
-import NavBar from './NavBar/NavBar'
-import TaskListTable from './NavBar/TaskListTable'
-import { BrowserRouter } from 'react-router-dom'
+import NavBar from './components/NavBar'
+import TaskListTable from './components/TaskListTable'
+import TaskForm from './components/TaskForm'
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 class App extends Component {
   // eslint-disable-next-line
   constructor(props) {
     super(props)
+
+    this.today = new Date()
+    this.teste = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today.getDate()).slice(-2);
   }
 
   render() {
@@ -15,7 +23,14 @@ class App extends Component {
         <div className="App">
           <NavBar></NavBar>
           <div className="container" style={{ marginTop: 20 }}>
-            <TaskListTable></TaskListTable>
+            <Switch>
+              <Route exact path="/form">
+                <TaskForm dateToday={this.teste}/>
+              </Route>
+              <Route path="/">
+                <TaskListTable />
+              </Route>
+            </Switch>
           </div>
         </div>
       </BrowserRouter>
@@ -24,3 +39,9 @@ class App extends Component {
 }
 
 export default App
+
+
+
+
+
+
