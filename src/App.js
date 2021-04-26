@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import NavBar from './NavBar/NavBar';
-import TaskListTable from './NavBar/TaskListTable';
-import { BrowserRouter } from 'react-router-dom';
+import React, { Component } from 'react'
+import NavBar from './NavBar/NavBar'
+import TaskListTable from './NavBar/TaskListTable'
+import { BrowserRouter } from 'react-router-dom'
 
 class App extends Component {
   // eslint-disable-next-line
@@ -19,8 +19,8 @@ class App extends Component {
           </div>
         </div>
       </BrowserRouter>
-    );
+    )
   }
 }
 
-export default App;
+export default App

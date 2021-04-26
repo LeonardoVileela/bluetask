@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import TaskService from '../api/TaskService';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { Component } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import TaskService from '../api/TaskService'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default class TaskListTable extends Component {
     constructor(props) {
@@ -9,7 +9,8 @@ export default class TaskListTable extends Component {
 
         this.state = { tasks: [] }
 
-        this.onDeleteHandler = this.onDeleteHandler.bind(this);
+        this.onDeleteHandler = this.onDeleteHandler.bind(this)
+        this.onStatusChangeHandler = this.onStatusChangeHandler.bind(this)
     }
 
     render() {
@@ -17,11 +18,23 @@ export default class TaskListTable extends Component {
             <>
                 <table className="table table-striped table-hover">
                     <TableHeader></TableHeader>
-                    <TableBody onDelete={this.onDeleteHandler} tasks={this.state.tasks}></TableBody>
+                    {
+                        this.state.tasks.length > 0 ?
+                            <TableBody onStatusChange={this.onStatusChangeHandler} onDelete={this.onDeleteHandler} tasks={this.state.tasks}></TableBody>
+                            :
+                            <EmptyTableBody></EmptyTableBody>
+                    }
                 </table>
                 <ToastContainer autoClose={1500} />
             </>
         )
+    }
+
+    onStatusChangeHandler(task) {
+        task.done = !task.done
+        TaskService.save(task)
+        this.listTasks()
+
     }
 
     componentDidMount() {
@@ -60,6 +73,24 @@ const TableHeader = () => {
     )
 }
 
+const EmptyTableBody = () => {
+    return (
+        <tbody>
+
+            <tr>
+
+                <td colspan="4">
+                    <center>
+                        Sem tarefas cadastradas no momento
+                    </center>
+                </td>
+
+            </tr>
+
+        </tbody>
+    )
+}
+
 const TableBody = (props) => {
     return (
         <tbody>
@@ -67,7 +98,7 @@ const TableBody = (props) => {
                 props.tasks.map(
                     task =>
                         <tr key={task.id}>
-                            <td><input type="checkbox" checked={task.done} /></td>
+                            <td><input onChange={() => props.onStatusChange(task)} type="checkbox" checked={task.done} /></td>
                             <td>{task.description}</td>
                             <td>{task.whenToDo}</td>
                             <td>

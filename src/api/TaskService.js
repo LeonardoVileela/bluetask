@@ -15,6 +15,12 @@ class TaskService{
         this.tasks = this.tasks.filter(task => task.id !== id)
     }
 
+    save(task){
+        this.tasks.map(
+            t => task.id !== t.id ? t : task
+        )
+    }
+
 }
 
-export default new TaskService();
+export default new TaskService()
