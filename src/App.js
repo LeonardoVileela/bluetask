@@ -20,18 +20,22 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="App">
-          <NavBar></NavBar>
-          <div className="container" style={{ marginTop: 20 }}>
+        <div className="App">    
             <Switch>
               <Route exact path="/form">
+                <NavBar></NavBar>
+                <div className="container" style={{ marginTop: 20 }}>
                 <TaskForm dateToday={this.teste}/>
+                </div>
               </Route>
-              <Route path="/">
+              <Route path="/" >
+                <NavBar></NavBar>
+                <div className="container" style={{ marginTop: 20 }}>
                 <TaskListTable />
+                </div>
               </Route>
             </Switch>
-          </div>
+    
         </div>
       </BrowserRouter>
     )

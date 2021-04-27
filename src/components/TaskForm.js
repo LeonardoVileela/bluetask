@@ -34,7 +34,12 @@ export default class TaskForm extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect to="/"  />
+            return <Redirect
+            to={{
+              pathname: "/",
+              state: { test: true }
+            }}
+          />
         }
         return (
             <div>
