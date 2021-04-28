@@ -6,7 +6,7 @@ import {
   BrowserRouter,
   Switch,
   Route,
-} from "react-router-dom";
+} from "react-router-dom"
 
 class App extends Component {
   // eslint-disable-next-line

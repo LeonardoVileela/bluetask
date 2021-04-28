@@ -2,17 +2,17 @@ import React, { Component } from 'react'
 import TaskService from '../api/TaskService'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Redirect } from "react-router-dom";
-import { withRouter } from "react-router";
+import { Redirect } from "react-router-dom"
+import { withRouter } from "react-router"
 
 class TaskForm extends Component {
 
     constructor(props) {
         super(props)
 
-        this.onSubmitHandler = this.onSubmitHandler.bind(this);
+        this.onSubmitHandler = this.onSubmitHandler.bind(this)
         this.today = new Date()
-        this.dateNow = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today.getDate()).slice(-2);
+        this.dateNow = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today.getDate()).slice(-2)
 
         this.state = {
             task: {
@@ -89,4 +89,4 @@ class TaskForm extends Component {
     }
 }
 
-export default withRouter(TaskForm);
+export default withRouter(TaskForm)

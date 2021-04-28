@@ -34,11 +34,14 @@ class TaskService {
         )
     }
     newValue(value) {
-        console.log("entrou")
         var formatDate = value.date
         formatDate = formatDate.split("-")
         value.date = formatDate[2] + "/" + formatDate[1] + "/" + formatDate[0]
-        this.tasks[this.tasks.length] = { id: Math.max(...this.tasks.map(t => t.id)) + 1, description: value.description, whenToDo: value.date, done: false }
+        var id = 1
+        if(this.tasks.length !== 0){
+            id = Math.max(...this.tasks.map(t => t.id)) + 1
+        }
+        this.tasks[this.tasks.length] = { id: id, description: value.description, whenToDo: value.date, done: false }
     }
 
 }

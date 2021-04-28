@@ -71,7 +71,7 @@ class TaskListTable extends React.Component {
 
 }
 
-export default TaskListTable;
+export default TaskListTable
 
 const TableHeader = () => {
     return (
