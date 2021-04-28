@@ -11,16 +11,30 @@ class TaskService {
         return this.tasks
     }
 
+    load(id) {
+        return this.tasks.filter(t => t.id === id)[0]
+    }
+
     delete(id) {
         this.tasks = this.tasks.filter(task => task.id !== id)
     }
 
-    save(task) {
-        this.tasks.map(
+    edit(task) {
+        var formatDate = task.whenToDo
+        formatDate = formatDate.split("-")
+        task.whenToDo = formatDate[2] + "/" + formatDate[1] + "/" + formatDate[0]
+        this.tasks = this.tasks.map(
+            t => task.id !== t.id ? t : task
+        )
+    }
+
+    checkbox(task) {
+        this.tasks = this.tasks.map(
             t => task.id !== t.id ? t : task
         )
     }
     newValue(value) {
+        console.log("entrou")
         var formatDate = value.date
         formatDate = formatDate.split("-")
         value.date = formatDate[2] + "/" + formatDate[1] + "/" + formatDate[0]

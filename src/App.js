@@ -13,29 +13,34 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.today = new Date()
-    this.teste = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today.getDate()).slice(-2);
+
   }
 
   render() {
     return (
       <BrowserRouter>
-        <div className="App">    
-            <Switch>
-              <Route exact path="/form">
-                <NavBar></NavBar>
-                <div className="container" style={{ marginTop: 20 }}>
-                <TaskForm dateToday={this.teste}/>
-                </div>
-              </Route>
-              <Route path="/" >
-                <NavBar></NavBar>
-                <div className="container" style={{ marginTop: 20 }}>
+        <div className="App">
+          <Switch>
+            <Route exact path="/form">
+              <NavBar></NavBar>
+              <div className="container" style={{ marginTop: 20 }}>
+                <TaskForm />
+              </div>
+            </Route>
+            <Route exact path="/form/:id">
+              <NavBar></NavBar>
+              <div className="container" style={{ marginTop: 20 }}>
+                <TaskForm />
+              </div>
+            </Route>
+            <Route path="/" >
+              <NavBar></NavBar>
+              <div className="container" style={{ marginTop: 20 }}>
                 <TaskListTable />
-                </div>
-              </Route>
-            </Switch>
-    
+              </div>
+            </Route>
+          </Switch>
+
         </div>
       </BrowserRouter>
     )

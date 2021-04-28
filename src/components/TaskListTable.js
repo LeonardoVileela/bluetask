@@ -2,26 +2,34 @@ import React from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import TaskService from '../api/TaskService'
 import 'react-toastify/dist/ReactToastify.css'
+import { Redirect } from 'react-router-dom'
 
 
 class TaskListTable extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { tasks: [] }
+        this.state = {
+            tasks: [],
+            editId: 0
+        }
         this.onDeleteHandler = this.onDeleteHandler.bind(this)
         this.onStatusChangeHandler = this.onStatusChangeHandler.bind(this)
+        this.onEditHandler = this.onEditHandler.bind(this)
 
     }
 
     render() {
+        if (this.state.editId > 0) {
+            return <Redirect to={`/form/${this.state.editId}`} />
+        }
         return (
             <>
                 <table className="table table-striped table-hover">
                     <TableHeader></TableHeader>
                     {
                         this.state.tasks.length > 0 ?
-                            <TableBody onStatusChange={this.onStatusChangeHandler} onDelete={this.onDeleteHandler} tasks={this.state.tasks}></TableBody>
+                            <TableBody onStatusChange={this.onStatusChangeHandler} onEdit={this.onEditHandler} onDelete={this.onDeleteHandler} tasks={this.state.tasks}></TableBody>
                             :
                             <EmptyTableBody></EmptyTableBody>
                     }
@@ -33,13 +41,17 @@ class TaskListTable extends React.Component {
 
     onStatusChangeHandler(task) {
         task.done = !task.done
-        TaskService.save(task)
+        TaskService.checkbox(task)
         this.listTasks()
 
     }
 
     componentDidMount() {
         this.listTasks()
+    }
+
+    onEditHandler(id) {
+        this.setState({ editId: id })
     }
 
     onDeleteHandler(id) {
@@ -103,7 +115,7 @@ const TableBody = (props) => {
                             <td>{task.done ? <s>{task.description}</s> : task.description}</td>
                             <td>{task.done ? <s>{task.whenToDo}</s> : task.whenToDo}</td>
                             <td>
-                                <input className="btn btn-primary" type="button" value="Editar"></input>
+                                <input onClick={() => props.onEdit(task.id)} className="btn btn-primary" type="button" value="Editar"></input>
                                 &nbsp;<input onClick={() => props.onDelete(task.id)} className="btn btn-danger" type="button" value="Excluir"></input>
                             </td>
                         </tr>

@@ -6,7 +6,7 @@ export default class NavBar extends Component {
     constructor(params) {
         super(params)
 
-        
+
         this.state = {
             items: [
                 { name: "Listar Tarefas", href: "/", active: true },
@@ -22,7 +22,7 @@ export default class NavBar extends Component {
             this.state.items.map(
                 i => i.name === itemClicked.name ? i.active = true : i.active = false
             )
-            
+
         )
     }
 
