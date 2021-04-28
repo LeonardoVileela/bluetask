@@ -11,6 +11,7 @@ class TaskForm extends Component {
         super(props)
 
         this.onSubmitHandler = this.onSubmitHandler.bind(this)
+        this.onCancelHandler = this.onCancelHandler.bind(this)
         this.today = new Date()
         this.dateNow = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' + ('0' + this.today.getDate()).slice(-2)
 
@@ -35,6 +36,11 @@ class TaskForm extends Component {
             task.whenToDo = editDate
             this.setState({ task: task })
         }
+    }
+
+    onCancelHandler(event){
+        event.preventDefault()
+        this.setState({ redirect: true })
     }
 
 
@@ -73,13 +79,15 @@ class TaskForm extends Component {
                 <form>
                     <div className="mb-3">
                         <label htmlFor="description" className="form-label">Descrição</label>
-                        <input ref={(c) => this.description = c} type="text" className="form-control" id="description" placeholder="Descrição..." defaultValue={this.state.task.description} />
+                        <input ref={(c) => this.description = c} type="text" className="form-control" id="description" placeholder="Descrição..." defaultValue={this.props.match.params.id ? this.state.task.description : ""} />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="whenToDo" className="form-label">Data</label>
                         <input ref={(d) => this.date = d} type="date" className="form-control" id="whenToDo" placeholder="Data" defaultValue={this.props.match.params.id ? this.state.task.whenToDo : this.dateNow} />
                     </div>
-                    <button onClick={this.onSubmitHandler} type="submit" className="btn btn-primary">Cadastrar</button>
+                    <button onClick={this.onSubmitHandler} type="submit" className="btn btn-primary">{this.props.match.params.id ? "Editar" : "Cadastrar"}</button>
+                    &nbsp;
+                    <button onClick={this.onCancelHandler} type="submit" className="btn btn-danger">Cancelar</button>
                 </form>
                 <ToastContainer autoClose={1500} />
 
