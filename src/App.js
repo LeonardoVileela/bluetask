@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import NavBar from './components/NavBar'
 import TaskListTable from './components/TaskListTable'
 import TaskForm from './components/TaskForm'
-import Brand from './components/Brand'
 import {
   BrowserRouter,
   Switch,
@@ -38,7 +37,6 @@ class App extends Component {
               <NavBar></NavBar>
               <div className="container" style={{ marginTop: 20 }}>
                 <TaskListTable />
-                <Brand></Brand>
               </div>
             </Route>
           </Switch>
