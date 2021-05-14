@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NavBar from './components/NavBar'
 import TaskListTable from './components/TaskListTable'
 import TaskForm from './components/TaskForm'
+import Login from './components/Login'
 import {
   BrowserRouter,
   Switch,
@@ -21,6 +22,12 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Switch>
+          <Route exact path="/login">
+              
+              <div className="container" style={{ marginTop: 20 }}>
+                <Login />
+              </div>
+            </Route>
             <Route exact path="/form">
               <NavBar></NavBar>
               <div className="container" style={{ marginTop: 20 }}>
