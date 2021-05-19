@@ -3,6 +3,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import TaskService from '../api/TaskService'
 import 'react-toastify/dist/ReactToastify.css'
 import { Redirect } from 'react-router-dom'
+import AuthService from '../api/AuthService'
+import Spinner from './Spinner'
 
 
 class TaskListTable extends React.Component {
@@ -11,7 +13,8 @@ class TaskListTable extends React.Component {
 
         this.state = {
             tasks: [],
-            editId: 0
+            editId: 0,
+            loading: false
         }
         this.onDeleteHandler = this.onDeleteHandler.bind(this)
         this.onStatusChangeHandler = this.onStatusChangeHandler.bind(this)
@@ -20,20 +23,27 @@ class TaskListTable extends React.Component {
     }
 
     render() {
+        if (!AuthService.isAuthenticated()) {
+            return <Redirect to="/login" />
+        }
+
+
         if (this.state.editId > 0) {
             return <Redirect to={`/form/${this.state.editId}`} />
         }
         return (
             <>
-                <table className="table table-striped table-hover">
-                    <TableHeader></TableHeader>
-                    {
-                        this.state.tasks.length > 0 ?
-                            <TableBody onStatusChange={this.onStatusChangeHandler} onEdit={this.onEditHandler} onDelete={this.onDeleteHandler} tasks={this.state.tasks}></TableBody>
-                            :
-                            <EmptyTableBody></EmptyTableBody>
-                    }
-                </table>
+                {this.state.loading ? <Spinner /> :
+                    <table className="table table-striped table-hover">
+                        <TableHeader></TableHeader>
+                        {
+                            this.state.tasks.length > 0 ?
+                                <TableBody onStatusChange={this.onStatusChangeHandler} onEdit={this.onEditHandler} onDelete={this.onDeleteHandler} tasks={this.state.tasks}></TableBody>
+                                :
+                                <EmptyTableBody></EmptyTableBody>
+                        }
+                    </table>
+                }
                 <ToastContainer autoClose={1500} />
             </>
         )

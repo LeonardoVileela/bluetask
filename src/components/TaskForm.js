@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Redirect } from "react-router-dom"
 import { withRouter } from "react-router"
+import AuthService from '../api/AuthService'
 
 class TaskForm extends Component {
 
@@ -38,7 +39,7 @@ class TaskForm extends Component {
         }
     }
 
-    onCancelHandler(event){
+    onCancelHandler(event) {
         event.preventDefault()
         this.setState({ redirect: true })
     }
@@ -65,6 +66,9 @@ class TaskForm extends Component {
     }
 
     render() {
+        if (!AuthService.isAuthenticated()) {
+            return <Redirect to="/login" />
+        }
         if (this.state.redirect) {
             return <Redirect
                 to={{

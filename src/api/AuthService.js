@@ -15,6 +15,14 @@ class AuthService{
             onLogin(false)
         })
     }
+
+    getJWTToken() {
+        return sessionStorage.getItem(JWT_TOKEN_NAME)
+    }
+
+    isAuthenticated() {
+        return this.getJWTToken() != null
+    }
 }
 
 export default new AuthService();

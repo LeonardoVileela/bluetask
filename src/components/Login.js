@@ -13,7 +13,7 @@ export default class Login extends Component {
             password: "",
             alert: null,
             processing: false,
-            loggedIn : false
+            loggedIn: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -23,16 +23,16 @@ export default class Login extends Component {
     handleSubmit(event) {
         event.preventDefault()
         this.setState({ processing: true })
-        AuthService.login(this.state.username, this.state.password, 
+        AuthService.login(this.state.username, this.state.password,
             success => {
-                if(success) {
+                if (success) {
                     this.setState({ loggedIn: true })
                 } else {
-                    this.setState({ alert : "O login não pode ser realizado" })
+                    this.setState({ alert: "O login não pode ser realizado" })
                 }
                 this.setState({ processing: false })
             }
-            )
+        )
     }
 
     handleInputChanged(event) {
@@ -46,7 +46,10 @@ export default class Login extends Component {
 
 
     render() {
-        if(this.state.loggedIn) {
+        if (AuthService.isAuthenticated()) {
+            return <Redirect to="/" />
+        }
+        if (this.state.loggedIn) {
             return <Redirect to="/" />
         }
 
